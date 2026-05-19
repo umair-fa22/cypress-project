@@ -23,3 +23,28 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+// Custom Command: login
+// Usage: cy.login('username', 'password')
+// Cypress.Commands.add('login', (username, password) => {
+//   cy.visit('https://www.saucedemo.com')
+//   cy.get('#user-name').type(username)
+//   cy.get('#password').type(password)
+//   cy.get('#login-button').click()
+// })
+
+// // Custom Command: addFirstItemToCart
+// // Usage: cy.addFirstItemToCart()
+// Cypress.Commands.add('addFirstItemToCart', () => {
+//   cy.get('.btn_primary').first().click()
+//   cy.get('.shopping_cart_link').click()
+// })
+
+// chatgpt
+Cypress.Commands.add('login', (username, password) => {
+  cy.get('#user-name').type(username)
+  cy.get('#password').type(password)
+  cy.get('#login-button').click()
+})
+
