@@ -41,10 +41,33 @@
 //   cy.get('.shopping_cart_link').click()
 // })
 
-// chatgpt
+// Custom login command for saucedemo.com
 Cypress.Commands.add('login', (username, password) => {
-  cy.get('#user-name').type(username)
-  cy.get('#password').type(password)
-  cy.get('#login-button').click()
-})
+  cy.get('[data-test="username"]').type(username);
+  cy.get('[data-test="password"]').type(password);
+  cy.contains('button', 'LOGIN').click();
+  // Wait for navigation to complete
+  cy.url().should('include', '/inventory.html');
+});
+
+// Custom command to logout
+Cypress.Commands.add('logout', () => {
+  cy.get('[data-test="open-menu"]').click();
+  cy.contains('a', 'Logout').click();
+  cy.url().should('include', '/index.html');
+});
+
+// Custom command to add item to cart by name
+Cypress.Commands.add('addToCartByName', (productName) => {
+  cy.contains(productName)
+    .parent()
+    .parent()
+    .contains('button', 'Add to cart')
+    .click();
+});
+
+// Custom command to verify product visibility
+Cypress.Commands.add('verifyProductVisible', (productName) => {
+  cy.contains('.inventory_item_name', productName).should('be.visible');
+});
 
